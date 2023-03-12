@@ -145,14 +145,29 @@ function getRandomSafeSpot() {
       let canvas = minimapContext.canvas;
       minimapContext.clearRect(0, 0, img.width, img.height);
       minimapContext.drawImage(img, 0, 0, 240, 208);
-      const playerSize = 5;
-      const playerX = players[playerId].x * 16 + 8;
-      const playerY = players[playerId].y * 16 + 8;
-      minimapContext.beginPath();
-      minimapContext.arc(playerX, playerY, playerSize, 0, 2*Math.PI);
-      minimapContext.fillStyle = 'red';
-      minimapContext.fill();
-    }
+      const playersRef = firebase.database().ref("players");
+      playersRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const player = childSnapshot.val();
+          const playerSize = 5;
+          if (player.id !== playerId) {
+            const playerX = player.x * 16 + 8;
+            const playerY = player.y * 16 + 8;
+            minimapContext.beginPath();
+            minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
+            minimapContext.fillStyle = "blue";
+            minimapContext.fill();
+          } else {
+            const playerX = player.x * 16 + 8;
+            const playerY = player.y * 16 + 8;
+            minimapContext.beginPath();
+            minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
+            minimapContext.fillStyle = "red";
+            minimapContext.fill();
+          }
+        });
+      });
+    };
     img.src = mapImage;
   }
 
@@ -181,7 +196,7 @@ function getRandomSafeSpot() {
     }
   }
   function isPositionAvailable(x, y, arr) {
-    return arr.find(pos => pos.x === x && pos.y === y) !== undefined;
+    return arr.find((pos) => pos.x === x && pos.y === y) !== undefined;
   }
 
   function handleArrowPress(xChange = 0, yChange = 0) {
@@ -195,14 +210,14 @@ function getRandomSafeSpot() {
         if (player.id !== playerId) {
           const otherX = player.x;
           const otherY = player.y;
-          positions.push({x: otherX, y: otherY});
+          positions.push({ x: otherX, y: otherY });
         }
       });
     });
 
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-    
+
     let backgroundSrc;
     if (!isSolid(newX, newY) && !isPositionAvailable(newX, newY, positions)) {
       //move to the next space
@@ -322,7 +337,7 @@ function getRandomSafeSpot() {
           el.style.display = `none`;
         }
       });
-      minimap()
+      minimap();
     });
     allPlayersRef.on("child_added", (snapshot) => {
       //   console.log("running: snapshot 2");
