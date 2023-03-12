@@ -146,18 +146,19 @@ function getRandomSafeSpot() {
       minimapContext.clearRect(0, 0, img.width, img.height);
       minimapContext.drawImage(img, 0, 0, 240, 208);
       const playersRef = firebase.database().ref("players");
+      let mapId = players[playerId].map;
       playersRef.once("value", (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           const player = childSnapshot.val();
           const playerSize = 5;
-          if (player.id !== playerId) {
+          if (playerId !== player.id && mapId === player.map) {
             const playerX = player.x * 16 + 8;
             const playerY = player.y * 16 + 8;
             minimapContext.beginPath();
             minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
             minimapContext.fillStyle = "blue";
             minimapContext.fill();
-          } else {
+          } else if (playerId === player.id) {
             const playerX = player.x * 16 + 8;
             const playerY = player.y * 16 + 8;
             minimapContext.beginPath();
@@ -472,7 +473,6 @@ function getRandomSafeSpot() {
         coins: 0,
         map: playerMap,
       });
-
       //Remove me from Firebase when I diconnect
       playerRef.onDisconnect().remove();
 
