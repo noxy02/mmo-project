@@ -135,7 +135,7 @@ function getRandomSafeSpot() {
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
-  // minimap()
+  minimap()
 
   function minimap() {
     const minimapCanvas = document.getElementById("minimap-canvas");
@@ -144,22 +144,9 @@ function getRandomSafeSpot() {
     const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
     let img = new Image();
     img.onload = function() {
+      let canvas = minimapContext.canvas;
       minimapContext.clearRect(0, 0, img.width, img.height);
       minimapContext.drawImage(img, 0, 0, 300, 300);
-      const scaleX = 720/300 //minimap width / image width
-      const scaleY = 624/300
-      const playerSize = 5;
-      const originalX = players[playerId].x;
-      const originalY = players[playerId].y;
-      const playerX = players[playerId].x * 18.5;
-      const playerY = players[playerId].y * 17;
-      console.log("original (x,y)", originalX, originalY);
-      console.log("scale (x,y)", playerX, playerY);
-      minimapContext.beginPath();
-      minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
-      minimapContext.fillStyle = 'red';
-      minimapContext.fill();
-      // const positionMapRelative = 
     }
     img.src = mapImage;
   }
@@ -315,8 +302,6 @@ function getRandomSafeSpot() {
           el.style.display = `none`;
         }
       });
-      minimap()
-      minimapPlayer();
     });
     allPlayersRef.on("child_added", (snapshot) => {
     //   console.log("running: snapshot 2");
