@@ -208,7 +208,7 @@ function getRandomSafeSpot() {
     playersRef.once("value", (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const player = childSnapshot.val();
-        if (player.id !== playerId) {
+        if (player.id !== playerId && player.map === playerMap) {
           const otherX = player.x;
           const otherY = player.y;
           positions.push({ x: otherX, y: otherY });
