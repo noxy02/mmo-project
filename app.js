@@ -133,8 +133,6 @@ function getRandomSafeSpot() {
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
-  minimap();
-
   function minimap() {
     const minimapCanvas = document.getElementById("minimap-canvas");
     const minimapContext = minimapCanvas.getContext("2d");
