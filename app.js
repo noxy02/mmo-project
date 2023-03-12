@@ -330,11 +330,11 @@ function getRandomSafeSpot() {
           el.setAttribute("data-direction", characterState.direction);
           const left = 16 * characterState.x + "px";
           const top = 16 * characterState.y - 4 + "px";
-          el.style.display = `block`;
+          el.style.visibility = `visible`;
           el.style.transform = `translate3d(${left}, ${top}, 0)`;
         } else {
           let el = playerElements[key];
-          el.style.display = `none`;
+          el.style.visibility = `hidden`;
         }
       });
       minimap();
