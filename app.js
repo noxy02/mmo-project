@@ -145,21 +145,14 @@ function getRandomSafeSpot() {
     let img = new Image();
     img.onload = function() {
       minimapContext.clearRect(0, 0, img.width, img.height);
-      minimapContext.drawImage(img, 0, 0, 300, 300);
-      const scaleX = 720/300 //minimap width / image width
-      const scaleY = 624/300
+      minimapContext.drawImage(img, 0, 0, 240, 208);
       const playerSize = 5;
-      const originalX = players[playerId].x;
-      const originalY = players[playerId].y;
-      const playerX = players[playerId].x * 18.5;
-      const playerY = players[playerId].y * 17;
-      console.log("original (x,y)", originalX, originalY);
-      console.log("scale (x,y)", playerX, playerY);
+      const playerX = players[playerId].x * 16 + 8;
+      const playerY = players[playerId].y * 16 + 8;
       minimapContext.beginPath();
-      minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
+      minimapContext.arc(playerX, playerY, playerSize, 0, 2*Math.PI);
       minimapContext.fillStyle = 'red';
       minimapContext.fill();
-      // const positionMapRelative = 
     }
     img.src = mapImage;
   }
@@ -316,7 +309,6 @@ function getRandomSafeSpot() {
         }
       });
       minimap()
-      minimapPlayer();
     });
     allPlayersRef.on("child_added", (snapshot) => {
     //   console.log("running: snapshot 2");
@@ -439,8 +431,8 @@ function getRandomSafeSpot() {
       const name = createName();
       playerNameInput.value = name;
 
-      const { x, y } = getRandomSafeSpot();
-
+      // const { x, y } = getRandomSafeSpot();
+      const { x, y } = {x:5, y:6};
       playerRef.set({
         id: playerId,
         name,
