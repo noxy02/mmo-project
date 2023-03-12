@@ -138,9 +138,6 @@ function getRandomSafeSpot() {
   minimap()
 
   function minimap() {
-    // const gameContainer = document.querySelector(".game-container");
-    // const playerNameInput = document.querySelector("#player-name");
-    // const playerColorButton = document.querySelector("#player-color");
     const minimapCanvas = document.getElementById("minimap-canvas");
     const minimapContext = minimapCanvas.getContext("2d");
     const gameContainerStyle = getComputedStyle(gameContainer);
@@ -248,18 +245,6 @@ function getRandomSafeSpot() {
       }
       gameContainer.style.background = backgroundSrc;
       minimap()
-      // const minimapCanvas = document.getElementById("minimap-canvas");
-      // const minimapContext = minimapCanvas.getContext("2d");
-      // const gameContainerStyle = getComputedStyle(gameContainer);
-      // const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
-      // console.log("this is a minimap", mapImage);
-      // console.log("minimap", minimapContext.width, minimapContext.height)
-      // let img = new Image();
-      // img.onload = function() {
-      //   minimapContext.drawImage(img, 0, 0, 300, 300);
-      // }
-      // img.src = mapImage;
-        // console.log(`Current Map: ${playerMap}`);
 
       if (xChange === 1) {
         players[playerId].direction = "right";
