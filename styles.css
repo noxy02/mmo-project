@@ -150,5 +150,17 @@ button:active {
   to { transform: translateY(5px) }
 }
 .Coin_shadow {
-  background: url(./images/coin-shadow.png) no-repeat no-repeat;
+  background: url(/images/coin-shadow.png) no-repeat no-repeat;
+}
+
+#minimap {
+  width: 300px;
+  height: 300px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  position: absolute;
+  top: 5;
+  right: 5;
+  background-color: #4d2222;
 }
