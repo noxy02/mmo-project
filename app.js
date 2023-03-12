@@ -228,7 +228,19 @@ function getRandomSafeSpot() {
 
       }
       gameContainer.style.background = backgroundSrc;
-      // console.log(`Current Map: ${playerMap}`);
+
+      const minimapCanvas = document.getElementById("minimap-canvas");
+      const minimapContext = minimapCanvas.getContext("2d");
+      const gameContainerStyle = getComputedStyle(gameContainer);
+      const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
+      console.log("this is a minimap", mapImage);
+      console.log("minimap", minimapContext.width, minimapContext.height)
+      let img = new Image();
+      img.onload = function() {
+        minimapContext.drawImage(img, 0, 0, 300, 300);
+      }
+      img.src = mapImage;
+        // console.log(`Current Map: ${playerMap}`);
 
       if (xChange === 1) {
         players[playerId].direction = "right";
@@ -259,7 +271,7 @@ function getRandomSafeSpot() {
     // const allMapsRef = firebase.database().ref(`maps`);
 
     allPlayersRef.on("value", (snapshot) => {
-      console.log("running: snapshot 1");
+      // console.log("running: snapshot 1");
 
       //Fires whenever a change occurs
       players = snapshot.val() || {};
@@ -288,7 +300,7 @@ function getRandomSafeSpot() {
       });
     });
     allPlayersRef.on("child_added", (snapshot) => {
-      console.log("running: snapshot 2");
+    //   console.log("running: snapshot 2");
 
       //Fires whenever a new node is added the tree
       const addedPlayer = snapshot.val();
@@ -330,7 +342,7 @@ function getRandomSafeSpot() {
 
     //Remove character DOM element after they leave
     allPlayersRef.on("child_removed", (snapshot) => {
-      console.log("running: snapshot 3");
+      // console.log("running: snapshot 3");
       const addedPlayer = snapshot.val();
       const removedKey = addedPlayer.id;
       // if (addedPlayer.map !== playerMap && addedPlayer.map !== undefined) {
