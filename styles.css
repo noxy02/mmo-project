@@ -29,7 +29,7 @@ html, body {
   padding: 1em;
   display: flex;
   gap: 0.5em;
-  align-items: flex-end
+  align-items: flex-end;
 }
 
 label {

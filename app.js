@@ -19,8 +19,6 @@ const mapData = {
   },
 };
 
-
-
 // Options for Player Colors... these are in the same order as our sprite sheet
 const playerColors = ["blue", "red", "orange", "yellow", "green", "purple"];
 
@@ -135,15 +133,18 @@ function getRandomSafeSpot() {
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
-  // minimap()
+  minimap();
 
   function minimap() {
     const minimapCanvas = document.getElementById("minimap-canvas");
     const minimapContext = minimapCanvas.getContext("2d");
     const gameContainerStyle = getComputedStyle(gameContainer);
-    const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
+    const mapImage = gameContainerStyle.backgroundImage
+      .slice(4, -1)
+      .replace(/"/g, "");
     let img = new Image();
-    img.onload = function() {
+    img.onload = function () {
+      let canvas = minimapContext.canvas;
       minimapContext.clearRect(0, 0, img.width, img.height);
       minimapContext.drawImage(img, 0, 0, 240, 208);
       const playerSize = 5;
@@ -181,14 +182,31 @@ function getRandomSafeSpot() {
       });
     }
   }
+  function isPositionAvailable(x, y, arr) {
+    return arr.find(pos => pos.x === x && pos.y === y) !== undefined;
+  }
 
   function handleArrowPress(xChange = 0, yChange = 0) {
+    const gameContainer = document.getElementById("game-container");
+    const playersRef = firebase.database().ref("players");
+    const positions = [];
+    //get other players positions
+    playersRef.once("value", (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const player = childSnapshot.val();
+        if (player.id !== playerId) {
+          const otherX = player.x;
+          const otherY = player.y;
+          positions.push({x: otherX, y: otherY});
+        }
+      });
+    });
+
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-    const gameContainer = document.getElementById("game-container");
-
+    
     let backgroundSrc;
-    if (!isSolid(newX, newY)) {
+    if (!isSolid(newX, newY) && !isPositionAvailable(newX, newY, positions)) {
       //move to the next space
       players[playerId].x = newX;
       players[playerId].y = newY;
@@ -247,10 +265,9 @@ function getRandomSafeSpot() {
             backgroundSrc = "url('./images/map.png')";
           }
         }
-
       }
       gameContainer.style.background = backgroundSrc;
-      minimap()
+      minimap();
 
       if (xChange === 1) {
         players[playerId].direction = "right";
@@ -261,7 +278,6 @@ function getRandomSafeSpot() {
       playerRef.set(players[playerId]);
       attemptGrabCoin(newX, newY);
     }
-
   }
 
   function initGame() {
@@ -311,7 +327,7 @@ function getRandomSafeSpot() {
       minimap()
     });
     allPlayersRef.on("child_added", (snapshot) => {
-    //   console.log("running: snapshot 2");
+      //   console.log("running: snapshot 2");
 
       //Fires whenever a new node is added the tree
       const addedPlayer = snapshot.val();
@@ -339,7 +355,7 @@ function getRandomSafeSpot() {
         //Fill in some initial state
         characterElement.querySelector(".Character_name").innerText =
           addedPlayer.name;
-        console.log(`add ${addedPlayer.name}`);
+        console.log(`Add player : ${addedPlayer.name}`);
         characterElement.querySelector(".Character_coins").innerText =
           addedPlayer.coins;
         characterElement.setAttribute("data-color", addedPlayer.color);
