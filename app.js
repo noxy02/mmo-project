@@ -135,6 +135,25 @@ function getRandomSafeSpot() {
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
+  minimap()
+
+  function minimap() {
+    // const gameContainer = document.querySelector(".game-container");
+    // const playerNameInput = document.querySelector("#player-name");
+    // const playerColorButton = document.querySelector("#player-color");
+    const minimapCanvas = document.getElementById("minimap-canvas");
+    const minimapContext = minimapCanvas.getContext("2d");
+    const gameContainerStyle = getComputedStyle(gameContainer);
+    const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
+    let img = new Image();
+    img.onload = function() {
+      let canvas = minimapContext.canvas;
+      minimapContext.clearRect(0, 0, img.width, img.height);
+      minimapContext.drawImage(img, 0, 0, 300, 300);
+    }
+    img.src = mapImage;
+  }
+
   function placeCoin() {
     const { x, y } = getRandomSafeSpot();
     const coinRef = firebase.database().ref(`coins/${getKeyString(x, y)}`);
@@ -228,18 +247,18 @@ function getRandomSafeSpot() {
 
       }
       gameContainer.style.background = backgroundSrc;
-
-      const minimapCanvas = document.getElementById("minimap-canvas");
-      const minimapContext = minimapCanvas.getContext("2d");
-      const gameContainerStyle = getComputedStyle(gameContainer);
-      const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
-      console.log("this is a minimap", mapImage);
-      console.log("minimap", minimapContext.width, minimapContext.height)
-      let img = new Image();
-      img.onload = function() {
-        minimapContext.drawImage(img, 0, 0, 300, 300);
-      }
-      img.src = mapImage;
+      minimap()
+      // const minimapCanvas = document.getElementById("minimap-canvas");
+      // const minimapContext = minimapCanvas.getContext("2d");
+      // const gameContainerStyle = getComputedStyle(gameContainer);
+      // const mapImage = gameContainerStyle.backgroundImage.slice(4, -1).replace(/"/g, "");
+      // console.log("this is a minimap", mapImage);
+      // console.log("minimap", minimapContext.width, minimapContext.height)
+      // let img = new Image();
+      // img.onload = function() {
+      //   minimapContext.drawImage(img, 0, 0, 300, 300);
+      // }
+      // img.src = mapImage;
         // console.log(`Current Map: ${playerMap}`);
 
       if (xChange === 1) {
