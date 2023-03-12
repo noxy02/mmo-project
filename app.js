@@ -447,8 +447,8 @@ function getRandomSafeSpot() {
       const name = createName();
       playerNameInput.value = name;
 
-      // const { x, y } = getRandomSafeSpot();
-      const { x, y } = {x:5, y:6};
+      const { x, y } = getRandomSafeSpot();
+
       playerRef.set({
         id: playerId,
         name,
