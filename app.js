@@ -360,8 +360,7 @@ function randomRespawnSpot() {
       playerRef = firebase.database().ref(`players/${playerId}`);
 
       const { x, y } = randomRespawnSpot();
-      
-      // const { x, y } = { x: 7, y: 7 }; // for testing
+
       playerRef.set({
         id: playerId,
         direction: "right",
