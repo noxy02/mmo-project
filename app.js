@@ -65,7 +65,6 @@ const mapData2 = {
     "13x6": true,
     "14x6": true,
     "14x5": true,
-    "0x1": true,
   },
 };
 
