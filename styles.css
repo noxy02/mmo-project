@@ -10,7 +10,7 @@ body {
   /* background: radial-gradient(#e66465, #9198e5); */
   padding: 0;
   background: rgb(226, 220, 201);
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "VT323", monospace;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,4 +173,26 @@ button:hover {
   overflow: hidden;
   background: #000;
   position: relative;
+}
+
+#header {
+  position: absolute;
+  z-index: 1;
+  top: 25%;
+  right: 44%;
+  font-size: 72px;
+}
+
+#group-member-header {
+  position: absolute;
+  z-index: 1;
+  top: 66%;
+  font-size: 32;
+}
+#group-member {
+  position: absolute;
+  z-index: 1;
+  top: 70%;
+  font-size: 28;
+  list-style-type: none;
 }
