@@ -102,7 +102,7 @@ button:hover {
   left: 4px;
   width: 7px;
   height: 5px;
-  background: url(./images/arrow.png) no-repeat no-repeat;
+  background: url(./images/red-arrow.png) no-repeat no-repeat;
 }
 .Character_sprite {
   overflow: hidden;
