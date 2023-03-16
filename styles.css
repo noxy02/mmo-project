@@ -182,7 +182,7 @@ button:hover {
 #header {
   position: absolute;
   z-index: 1;
-  top: 10%;
+  top: -3%;
   text-align: center;
   font-size: 72px;
 }
