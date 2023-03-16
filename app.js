@@ -70,14 +70,14 @@ function createName() {
   return `${prefix} ${animal}`;
 }
 
-function isSolid(x, y, pid) {
+function isSolid(x, y, pMap) {
   const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
   return (
     blockedNextSpace ||
     x >= mapData.maxX ||
     x < mapData.minX ||
-    y < mapData.minY ||
-    pid === 1
+    (y < mapData.minY &&
+    pMap === 1)
   )
   // return blockedNextSpace;
 }
@@ -177,6 +177,7 @@ function getRandomSafeSpot() {
   }
 
   function handleArrowPress(xChange = 0, yChange = 0) {
+    
     const gameContainer = document.getElementById("game-container");
     const playersRef = firebase.database().ref("players");
     const positions = [];
@@ -194,9 +195,10 @@ function getRandomSafeSpot() {
 
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-
+    const pMap = players[playerId].map
+    console.log(`Map :${players[playerId].map}`)
     let backgroundSrc;
-    if (!isSolid(newX, newY, playerId) && !isPositionAvailable(newX, newY, positions)) {
+    if (!isSolid(newX, newY, pMap) && !isPositionAvailable(newX, newY, positions)) {
       //move to the next space
       console.log(`X ${players[playerId].x} Y ${players[playerId].y}`)
       players[playerId].x = newX;
@@ -206,19 +208,14 @@ function getRandomSafeSpot() {
         if (newY >= mapData.maxY) {
           //top boundary
           if (players[playerId].map === 1) {
-            playerMap = 4;
-            players[playerId].map = 4;
-            players[playerId].y = 1;
+            playerMap = 2;
+            players[playerId].map = 2;
+            players[playerId].y = 0;
             backgroundSrc = "url('./images/map-bottom.png')";
-          } else if (players[playerId].map === 5) {
-            playerMap = 1;
-            players[playerId].map = 1;
-            players[playerId].y = 1;
-            backgroundSrc = "url('./images/mapgrass.png')";
           }
         } 
         else if (newY < mapData.minY) {
-          if (players[playerId].map === 4) {
+          if (players[playerId].map === 2) {
             playerMap = 1;
             players[playerId].map = 1;
             players[playerId].y = 14;
