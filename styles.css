@@ -66,11 +66,12 @@ input[type="text"]:focus {
 button {
   padding-left: 0.5em;
   padding-right: 0.5em;
-  background: #E90064;
+  background: #e90064;
   color: #fff;
   border: 0;
-  border-bottom: 2px solid #B3005E;
+  border-bottom: 2px solid #b3005e;
   cursor: pointer;
+  font-size: 25;
 }
 button:active {
   position: relative;
@@ -78,7 +79,7 @@ button:active {
 }
 
 button:hover {
-  background: #FF5F9E;
+  background: #ff5f9e;
 }
 
 /* Characters */
