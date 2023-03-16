@@ -40,7 +40,34 @@ const mapData2 = {
   minY: 0,
   maxY: 15,
   blockedSpaces: {
-
+    "0x5": true,
+    "1x5": true,
+    "2x5": true,
+    "3x5": true,
+    "4x5": true,
+    "4x6": true,
+    "5x6": true,
+    "5x7": true,
+    "6x7": true,
+    "6x8": true,
+    "6x9": true,
+    "7x9": true,
+    "7x10": true,
+    "8x10": true,
+    "9x10": true,
+    "10x10": true,
+    "10x9": true,
+    "11x9": true,
+    "11x8": true,
+    "12x8": true,
+    "12x7": true,
+    "13x7": true,
+    "13x6": true,
+    "14x6": true,
+    "14x5": true,
+    "0x1": true,
+    "11x1": true,
+    "12x1": true,
   },
 };
 
@@ -55,24 +82,23 @@ function getKeyString(x, y) {
   return `${x}x${y}`;
 }
 
-
 function isSolid(x, y, pMap) {
   if (pMap === 1) {
     const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
-  return (
-    blockedNextSpace ||
-    x >= mapData.maxX ||
-    x < mapData.minX ||
-    (y < mapData.minY && pMap === 1)
-  );
+    return (
+      blockedNextSpace ||
+      x >= mapData.maxX ||
+      x < mapData.minX ||
+      (y < mapData.minY && pMap === 1)
+    );
   } else {
     const blockedNextSpace = mapData2.blockedSpaces[getKeyString(x, y)];
-  return (
-    blockedNextSpace ||
-    x >= mapData.maxX ||
-    x < mapData.minX ||
-    (y < mapData.minY && pMap === 1)
-  );
+    return (
+      blockedNextSpace ||
+      x >= mapData.maxX ||
+      x < mapData.minX ||
+      (y < mapData.minY && pMap === 1)
+    );
   }
   // return blockedNextSpace;
 }
