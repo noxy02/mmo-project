@@ -80,7 +80,6 @@ button:hover {
   background: #fff429;
 }
 
-
 /* Characters */
 .grid-cell {
   position: absolute;
@@ -158,8 +157,9 @@ button:hover {
 
 #minimap {
   border-style: solid;
-  border-width: 3px;
-  border-color: black;
+  border-width: 5px;
+  border-radius: 2%;
+  border-color: rgb(39, 37, 37);
   position: absolute;
   top: 5;
   right: 5;
