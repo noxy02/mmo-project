@@ -181,17 +181,19 @@ button:hover {
   position: absolute;
   z-index: 1;
   top: 25%;
-  right: 44%;
+  text-align: center;
   font-size: 72px;
 }
 
 #group-member-header {
+  text-align: center;
   position: absolute;
   z-index: 1;
   top: 66%;
   font-size: 32;
 }
 #group-member {
+  text-align: center;
   position: absolute;
   z-index: 1;
   top: 70%;
