@@ -31,10 +31,10 @@ body {
 }
 
 .game-container {
-  background: url(./images/map.png) no-repeat no-repeat;
+  background: url(./images/mapgrass.png) no-repeat no-repeat;
   /* background: url(./images/nineLarge.png) no-repeat no-repeat; */
   width: 240px;
-  height: 208px;
+  height: 233px;
   /* width: 720px; */
   /* height: 612; */
   transform: scale(3);
@@ -113,8 +113,8 @@ button:active {
 .Character_you-arrow {
   display: none;
   position: absolute;
-  top: -18px;
-  left: 5px;
+  top: -16px;
+  left: 4px;
   width: 7px;
   height: 5px;
   background: url(./images/arrow.png) no-repeat no-repeat;
@@ -122,10 +122,19 @@ button:active {
 .Character_sprite {
   overflow: hidden;
   top: -3px;
-  background: url(./images/characters.png);
+  background: url(./images/characters3.png);
 }
 .Character[data-direction="right"] .Character_sprite {
+  background-position-x: -16px;
+}
+.Character[data-direction="left"] .Character_sprite {
+  background-position-x: 0px;
+}
+.Character[data-direction="down"] .Character_sprite {
   background-position-x: 16px;
+}
+.Character[data-direction="up"] .Character_sprite {
+  background-position-x: -32px;
 }
 .Character[data-color="red"] .Character_sprite {
   background-position-y: -16px;
@@ -158,6 +167,7 @@ button:active {
   font-weight: bold;
   text-transform: uppercase;
   white-space: nowrap;
+  display: none;
 }
 .Character_coins {
   margin-left: 1px;
@@ -201,6 +211,6 @@ button:active {
   /* width: calc(var(--pixel-size) * 100); */
   /* height: calc(var(--pixel-size) * 100); */
   overflow: hidden;
-  background: #61ddf7;
+  background: #000;
   position: relative;
 }

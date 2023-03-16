@@ -1,21 +1,21 @@
 const mapData = {
-  minX: 1,
-  maxX: 14,
-  minY: 4,
-  maxY: 12,
+  minX: 0,
+  maxX: 15,
+  minY: 0,
+  maxY: 15,
   blockedSpaces: {
-    "7x4": true,
-    "1x11": true,
-    "12x10": true,
-    "4x7": true,
-    "5x7": true,
-    "6x7": true,
-    "8x6": true,
-    "9x6": true,
-    "10x6": true,
-    "7x9": true,
-    "8x9": true,
-    "9x9": true,
+    // "7x4": true,
+    // "1x11": true,
+    // "12x10": true,
+    // "4x7": true,
+    // "5x7": true,
+    // "6x7": true,
+    // "8x6": true,
+    // "9x6": true,
+    // "10x6": true,
+    // "7x9": true,
+    // "8x9": true,
+    // "9x9": true,
   },
 };
 
@@ -70,16 +70,16 @@ function createName() {
   return `${prefix} ${animal}`;
 }
 
-function isSolid(x, y) {
+function isSolid(x, y, pid) {
   const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
-  // return (
-  //   blockedNextSpace ||
-  //   x >= mapData.maxX ||
-  //   x < mapData.minX ||
-  //   y >= mapData.maxY ||
-  //   y < mapData.minY
-  // )
-  return blockedNextSpace;
+  return (
+    blockedNextSpace ||
+    x >= mapData.maxX ||
+    x < mapData.minX ||
+    y < mapData.minY ||
+    pid === 1
+  )
+  // return blockedNextSpace;
 }
 
 function isBoundary(x, y) {
@@ -144,7 +144,7 @@ function getRandomSafeSpot() {
     img.onload = function () {
       let canvas = minimapContext.canvas;
       minimapContext.clearRect(0, 0, img.width, img.height);
-      minimapContext.drawImage(img, 0, 0, 240, 208);
+      minimapContext.drawImage(img, 0, 0, 240, 233);
       const playersRef = firebase.database().ref("players");
       let mapId = players[playerId].map;
       playersRef.once("value", (snapshot) => {
@@ -153,14 +153,14 @@ function getRandomSafeSpot() {
           const playerSize = 5;
           if (playerId !== player.id && mapId === player.map) {
             const playerX = player.x * 16 + 8;
-            const playerY = player.y * 16 + 8;
+            const playerY = player.y * 16 + 4 ;
             minimapContext.beginPath();
             minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
             minimapContext.fillStyle = "blue";
             minimapContext.fill();
           } else if (playerId === player.id) {
             const playerX = player.x * 16 + 8;
-            const playerY = player.y * 16 + 8;
+            const playerY = player.y * 16 + 4;
             minimapContext.beginPath();
             minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
             minimapContext.fillStyle = "red";
@@ -172,30 +172,6 @@ function getRandomSafeSpot() {
     img.src = mapImage;
   }
 
-  function placeCoin() {
-    const { x, y } = getRandomSafeSpot();
-    const coinRef = firebase.database().ref(`coins/${getKeyString(x, y)}`);
-    coinRef.set({
-      x,
-      y,
-    });
-
-    const coinTimeouts = [2000, 3000, 4000, 5000];
-    setTimeout(() => {
-      placeCoin();
-    }, randomFromArray(coinTimeouts));
-  }
-
-  function attemptGrabCoin(x, y) {
-    const key = getKeyString(x, y);
-    if (coins[key]) {
-      // Remove this key from data, then uptick Player's coin count
-      firebase.database().ref(`coins/${key}`).remove();
-      playerRef.update({
-        coins: players[playerId].coins + 1,
-      });
-    }
-  }
   function isPositionAvailable(x, y, arr) {
     return arr.find((pos) => pos.x === x && pos.y === y) !== undefined;
   }
@@ -220,63 +196,33 @@ function getRandomSafeSpot() {
     const newY = players[playerId].y + yChange;
 
     let backgroundSrc;
-    if (!isSolid(newX, newY) && !isPositionAvailable(newX, newY, positions)) {
+    if (!isSolid(newX, newY, playerId) && !isPositionAvailable(newX, newY, positions)) {
       //move to the next space
+      console.log(`X ${players[playerId].x} Y ${players[playerId].y}`)
       players[playerId].x = newX;
       players[playerId].y = newY;
       // console.log("X : " + newX + ", Y : " + newY);
       if (isBoundary(newX, newY)) {
-        if (newX >= mapData.maxX) {
-          //right boundary
-          if (players[playerId].map === 1) {
-            playerMap = 2;
-            players[playerId].map = 2;
-            players[playerId].x = 1;
-            backgroundSrc = "url('./images/map2.png')";
-          } else if (players[playerId].map === 3) {
-            playerMap = 1;
-            players[playerId].map = 1;
-            players[playerId].x = 1;
-            backgroundSrc = "url('./images/map.png')";
-          }
-        } else if (newX < mapData.minX) {
-          //left boundary
-          if (players[playerId].map === 1) {
-            playerMap = 3;
-            players[playerId].map = 3;
-            players[playerId].x = 13;
-            backgroundSrc = "url('./images/map3.png')";
-          } else if (players[playerId].map === 2) {
-            playerMap = 1;
-            players[playerId].map = 1;
-            players[playerId].x = 13;
-            backgroundSrc = "url('./images/map.png')";
-          }
-        } else if (newY >= mapData.maxY) {
+        if (newY >= mapData.maxY) {
           //top boundary
           if (players[playerId].map === 1) {
             playerMap = 4;
             players[playerId].map = 4;
-            players[playerId].y = 4;
-            backgroundSrc = "url('./images/map4.png')";
+            players[playerId].y = 1;
+            backgroundSrc = "url('./images/map-bottom.png')";
           } else if (players[playerId].map === 5) {
             playerMap = 1;
             players[playerId].map = 1;
-            players[playerId].y = 4;
-            backgroundSrc = "url('./images/map.png')";
+            players[playerId].y = 1;
+            backgroundSrc = "url('./images/mapgrass.png')";
           }
-        } else if (newY < mapData.minY) {
-          //bottom boundary
-          if (players[playerId].map === 1) {
-            playerMap = 5;
-            players[playerId].map = 5;
-            players[playerId].y = 11;
-            backgroundSrc = "url('./images/map5.png')";
-          } else if (players[playerId].map === 4) {
+        } 
+        else if (newY < mapData.minY) {
+          if (players[playerId].map === 4) {
             playerMap = 1;
             players[playerId].map = 1;
-            players[playerId].y = 11;
-            backgroundSrc = "url('./images/map.png')";
+            players[playerId].y = 14;
+            backgroundSrc = "url('./images/mapgrass.png')";
           }
         }
       }
@@ -289,8 +235,15 @@ function getRandomSafeSpot() {
       if (xChange === -1) {
         players[playerId].direction = "left";
       }
+      if (yChange === 1) {
+        players[playerId].direction = "down";
+      }
+      if (yChange === -1) {
+        players[playerId].direction = "up";
+      }
+      console.log(players[playerId].direction )
       playerRef.set(players[playerId]);
-      attemptGrabCoin(newX, newY);
+
     }
   }
 
@@ -335,8 +288,8 @@ function getRandomSafeSpot() {
           const intTop = 16 * characterState.y - 3;
 
           el.style.visibility = `visible`;
-          console.log(left, top);
-          console.log(intLeft, intTop);
+          // console.log(left, top);
+          // console.log(intLeft, intTop);
           var pixelSize = parseInt(
             getComputedStyle(document.documentElement).getPropertyValue(
               "--pixel-size"
@@ -347,8 +300,8 @@ function getRandomSafeSpot() {
           el.style.transform = `translate3d(${left}, ${top}, 0)`;
           if (characterState.id === playerId) {
             gameContainer.style.transform = `translate3d(${
-              -intLeft * 3 + 425
-            }px, ${-intTop * 3 + 330}px, 0) scale(3)`;
+              -intLeft * 3 + 415
+            }px, ${-intTop * 3 + 380}px, 0) scale(3)`;
           }
         } else {
           let el = playerElements[key];
@@ -480,7 +433,7 @@ function getRandomSafeSpot() {
       playerNameInput.value = name;
 
       // const { x, y } = getRandomSafeSpot();
-      const { x, y } = { x: 7, y: 7 };
+      const { x, y } = { x: 5, y: 1 };
       playerRef.set({
         id: playerId,
         name,
