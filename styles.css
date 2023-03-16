@@ -30,7 +30,7 @@ body {
 .player-info {
   position: absolute;
   top: 240px;
-  right: 0;
+  left: 0;
   padding: 1em;
   display: flex;
   gap: 0.5em;
@@ -164,7 +164,8 @@ button:hover {
   border-color: rgb(39, 37, 37);
   position: absolute;
   top: 5;
-  right: 5;
+  left: 5;
+  /* right: 5; */
   background-color: #000;
 }
 
