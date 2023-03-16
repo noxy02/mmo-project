@@ -321,7 +321,8 @@ function randomRespawnSpot() {
       `;
         playerElements[addedPlayer.id] = characterElement;
 
-        characterElement.querySelector(".Character_name").innerText = addedPlayer.id;
+        characterElement.querySelector(".Character_name").innerText =
+          addedPlayer.id;
         characterElement.setAttribute("data-color", addedPlayer.color);
         characterElement.setAttribute("data-direction", addedPlayer.direction);
         const left = 16 * addedPlayer.x + "px";
