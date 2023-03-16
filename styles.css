@@ -14,6 +14,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .game-container {
@@ -181,23 +182,21 @@ button:hover {
 #header {
   position: absolute;
   z-index: 1;
-  top: 25%;
+  top: 10%;
   text-align: center;
   font-size: 72px;
 }
 
 #group-member-header {
   text-align: center;
-  position: absolute;
   z-index: 1;
-  top: 66%;
-  font-size: 32;
+  font-size: 32px;
+  justify-content: center;
 }
+
 #group-member {
-  text-align: center;
-  position: absolute;
-  z-index: 1;
-  top: 70%;
+  text-align: left;
   font-size: 28;
+  display: inline-block;
   list-style-type: none;
 }
