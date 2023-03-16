@@ -9,7 +9,7 @@ body {
   height: 100%;
   /* background: radial-gradient(#e66465, #9198e5); */
   padding: 0;
-
+  background: rgb(226, 220, 201);
   font-family: "Source Sans Pro", sans-serif;
   display: flex;
   align-items: center;
@@ -102,7 +102,7 @@ button:hover {
   left: 4px;
   width: 7px;
   height: 5px;
-  background: url(./images/red-arrow.png) no-repeat no-repeat;
+  background: url(./images/arrow.png) no-repeat no-repeat;
 }
 .Character_sprite {
   overflow: hidden;
