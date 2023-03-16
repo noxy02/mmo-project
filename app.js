@@ -345,9 +345,11 @@ function getRandomSafeSpot() {
           // gameContrainer.style.width = 720;
           // gameContrainer.style.height = 612;
           el.style.transform = `translate3d(${left}, ${top}, 0)`;
-          gameContainer.style.transform = `translate3d(${
-            -intLeft * 3 + 425
-          }px, ${-intTop * 3 + 330}px, 0) scale(3)`;
+          if (characterState.id === playerId) {
+            gameContainer.style.transform = `translate3d(${
+              -intLeft * 3 + 425
+            }px, ${-intTop * 3 + 330}px, 0) scale(3)`;
+          }
         } else {
           let el = playerElements[key];
           el.style.visibility = `hidden`;
