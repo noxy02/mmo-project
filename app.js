@@ -206,7 +206,6 @@ function getRandomSafeSpot() {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
     const pMap = players[playerId].map;
-
     let backgroundSrc;
     if (
       !isSolid(newX, newY, pMap) &&
@@ -235,7 +234,6 @@ function getRandomSafeSpot() {
         }
       }
       gameContainer.style.backgroundImage = backgroundSrc;
-      minimap();
 
       if (xChange === 1) {
         players[playerId].direction = "right";
@@ -249,7 +247,6 @@ function getRandomSafeSpot() {
       if (yChange === -1) {
         players[playerId].direction = "up";
       }
-
       playerRef.set(players[playerId]);
     }
   }
