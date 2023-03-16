@@ -335,20 +335,13 @@ function getRandomSafeSpot() {
           const intTop = 16 * characterState.y - 3;
 
           el.style.visibility = `visible`;
-          console.log(left, top);
-          console.log(intLeft, intTop);
-          var pixelSize = parseInt(
-            getComputedStyle(document.documentElement).getPropertyValue(
-              "--pixel-size"
-            )
-          );
-          // gameContrainer.style.width = 720;
-          // gameContrainer.style.height = 612;
           el.style.transform = `translate3d(${left}, ${top}, 0)`;
+          // move camera by moving the map.
+          // translate(3d) ignore image scaling in css, have to specify in function.
           if (characterState.id === playerId) {
             gameContainer.style.transform = `translate3d(${
-              -intLeft * 3 + 425
-            }px, ${-intTop * 3 + 330}px, 0) scale(3)`;
+              -intLeft * 3 + 415
+            }px, ${-intTop * 3 + 365}px, 0) scale(3)`;
           }
         } else {
           let el = playerElements[key];
@@ -479,8 +472,8 @@ function getRandomSafeSpot() {
       const name = createName();
       playerNameInput.value = name;
 
-      // const { x, y } = getRandomSafeSpot();
-      const { x, y } = { x: 7, y: 7 };
+      const { x, y } = getRandomSafeSpot();
+      // const { x, y } = { x: 7, y: 7 }; // for testing
       playerRef.set({
         id: playerId,
         name,
