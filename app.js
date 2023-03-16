@@ -141,7 +141,7 @@ function randomRespawnSpot() {
     const mapImage = gameContainerStyle.backgroundImage
       .slice(4, -1)
       .replace(/"/g, "");
-    console.log(mapImage);
+
     let img = new Image();
     img.onload = function () {
       minimapContext.clearRect(0, 0, img.width, img.height);
