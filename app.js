@@ -13,7 +13,7 @@ const mapData = {
     "9x7": true,
     "9x6": true,
     "8x6": true,
-    "7x6": true,
+    // "7x6": true, //way to lake
     "6x6": true,
     "5x6": true,
     "5x7": true,
