@@ -4,18 +4,32 @@ const mapData = {
   minY: 0,
   maxY: 15,
   blockedSpaces: {
-    // "7x4": true,
-    // "1x11": true,
-    // "12x10": true,
-    // "4x7": true,
-    // "5x7": true,
-    // "6x7": true,
-    // "8x6": true,
-    // "9x6": true,
-    // "10x6": true,
-    // "7x9": true,
-    // "8x9": true,
-    // "9x9": true,
+    "5x9": true,
+    "6x9": true,
+    "7x9": true,
+    "8x9": true,
+    "9x9": true,
+    "9x8": true,
+    "9x7": true,
+    "9x6": true,
+    "8x6": true,
+    "7x6": true,
+    "6x6": true,
+    "5x6": true,
+    "5x7": true,
+    "5x8": true,
+    "5x9": true,
+    "0x2": true,
+    "0x1": true,
+    "0x0": true,
+    "1x0": true,
+    "2x0": true,
+    "3x0": true,
+    "4x0": true,
+    "4x1": true,
+    "4x2": true,
+    "3x2": true,
+    "2x2": true,
   },
 };
 
@@ -76,9 +90,8 @@ function isSolid(x, y, pMap) {
     blockedNextSpace ||
     x >= mapData.maxX ||
     x < mapData.minX ||
-    (y < mapData.minY &&
-    pMap === 1)
-  )
+    (y < mapData.minY && pMap === 1)
+  );
   // return blockedNextSpace;
 }
 
@@ -127,7 +140,6 @@ function getRandomSafeSpot() {
   let players = {};
   let playerElements = {};
 
-
   const gameContainer = document.querySelector(".game-container");
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
@@ -152,7 +164,7 @@ function getRandomSafeSpot() {
           const playerSize = 5;
           if (playerId !== player.id && mapId === player.map) {
             const playerX = player.x * 16 + 8;
-            const playerY = player.y * 16 + 4 ;
+            const playerY = player.y * 16 + 4;
             minimapContext.beginPath();
             minimapContext.arc(playerX, playerY, playerSize, 0, 2 * Math.PI);
             minimapContext.fillStyle = "blue";
@@ -176,7 +188,6 @@ function getRandomSafeSpot() {
   }
 
   function handleArrowPress(xChange = 0, yChange = 0) {
-    
     const gameContainer = document.getElementById("game-container");
     const playersRef = firebase.database().ref("players");
     const positions = [];
@@ -194,15 +205,17 @@ function getRandomSafeSpot() {
 
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-    const pMap = players[playerId].map
-    console.log(`Map :${players[playerId].map}`)
+    const pMap = players[playerId].map;
+
     let backgroundSrc;
-    if (!isSolid(newX, newY, pMap) && !isPositionAvailable(newX, newY, positions)) {
+    if (
+      !isSolid(newX, newY, pMap) &&
+      !isPositionAvailable(newX, newY, positions)
+    ) {
       //move to the next space
-      console.log(`X ${players[playerId].x} Y ${players[playerId].y}`)
       players[playerId].x = newX;
       players[playerId].y = newY;
-      // console.log("X : " + newX + ", Y : " + newY);
+      console.log("X : " + newX + ", Y : " + newY);
       if (isBoundary(newX, newY)) {
         if (newY >= mapData.maxY) {
           //top boundary
@@ -212,8 +225,7 @@ function getRandomSafeSpot() {
             players[playerId].y = 0;
             backgroundSrc = "url('./images/map-bottom.png')";
           }
-        } 
-        else if (newY < mapData.minY) {
+        } else if (newY < mapData.minY) {
           if (players[playerId].map === 2) {
             playerMap = 1;
             players[playerId].map = 1;
@@ -237,9 +249,8 @@ function getRandomSafeSpot() {
       if (yChange === -1) {
         players[playerId].direction = "up";
       }
-      console.log(players[playerId].direction )
-      playerRef.set(players[playerId]);
 
+      playerRef.set(players[playerId]);
     }
   }
 
@@ -256,7 +267,6 @@ function getRandomSafeSpot() {
     new KeyPressListener("KeyD", () => handleArrowPress(1, 0));
 
     const allPlayersRef = firebase.database().ref(`players`);
-
 
     allPlayersRef.on("value", (snapshot) => {
       // console.log("running: snapshot 1");
@@ -325,7 +335,7 @@ function getRandomSafeSpot() {
         //Fill in some initial state
         characterElement.querySelector(".Character_name").innerText =
           addedPlayer.name;
-        console.log(`Add player : ${addedPlayer.name}`);
+        // console.log(`Add player : ${addedPlayer.name}`);
         characterElement.setAttribute("data-color", addedPlayer.color);
         characterElement.setAttribute("data-direction", addedPlayer.direction);
         const left = 16 * addedPlayer.x + "px";
@@ -364,7 +374,6 @@ function getRandomSafeSpot() {
         color: nextColor,
       });
     });
-
   }
 
   firebase.auth().onAuthStateChanged((user) => {
