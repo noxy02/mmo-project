@@ -66,8 +66,6 @@ const mapData2 = {
     "14x6": true,
     "14x5": true,
     "0x1": true,
-    "11x1": true,
-    "12x1": true,
   },
 };
 
@@ -274,7 +272,7 @@ function randomRespawnSpot() {
           let el = playerElements[key];
           // console.log(characterState.name);
           // Now update the DOM
-          el.querySelector(".Character_name").innerText = characterState.name;
+          el.querySelector(".Character_name").innerText = characterState.id;
           el.setAttribute("data-color", characterState.color);
           el.setAttribute("data-direction", characterState.direction);
           const left = 16 * characterState.x + "px";
@@ -323,10 +321,7 @@ function randomRespawnSpot() {
       `;
         playerElements[addedPlayer.id] = characterElement;
 
-        //Fill in some initial state
-        characterElement.querySelector(".Character_name").innerText =
-          addedPlayer.name;
-        // console.log(`Add player : ${addedPlayer.name}`);
+        characterElement.querySelector(".Character_name").innerText = addedPlayer.id;
         characterElement.setAttribute("data-color", addedPlayer.color);
         characterElement.setAttribute("data-direction", addedPlayer.direction);
         const left = 16 * addedPlayer.x + "px";

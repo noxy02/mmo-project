@@ -11,7 +11,6 @@ body {
   padding: 0;
   height: 100%;
   font-family: "Source Sans Pro", sans-serif;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,27 +148,6 @@ button:active {
   text-transform: uppercase;
   white-space: nowrap;
   display: none;
-}
-.Character_coins {
-  margin-left: 1px;
-  color: gold;
-}
-
-/* Coins */
-.Coin_sprite {
-  background: url(./images/coin.png) no-repeat no-repeat;
-  animation: coinFloat 0.8s linear infinite alternate-reverse;
-}
-@keyframes coinFloat {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(5px);
-  }
-}
-.Coin_shadow {
-  background: url(/images/coin-shadow.png) no-repeat no-repeat;
 }
 
 #minimap {
