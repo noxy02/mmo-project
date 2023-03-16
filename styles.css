@@ -4,19 +4,13 @@
 :root {
   --pixel-size: 4px;
   --grid-cell: calc(var(--pixel-size) * 16);
-  --bg: #9fa7e4;
 }
 html,
 body {
-  /* margin: 0;
+  margin: 0;
   padding: 0;
   height: 100%;
-  background: linear-gradient(
-    180deg,
-    #64beff -50%,
-    #6e96ff 69.71%,
-    #2a65ff 150%
-  );*/
+  background: linear-gradient(180deg, #fff -40%, #6e96ff 69.71%, #2a65ff 150%);
   padding: 0;
   height: 100%;
   font-family: "Source Sans Pro", sans-serif;
@@ -24,7 +18,7 @@ body {
   align-items: center;
   justify-content: center; */
 
-  background: var(--bg);
+  /* background: var(--bg); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,7 +192,7 @@ button:active {
   position: absolute;
   top: 5;
   right: 5;
-  background-color: #4d2222;
+  background-color: #000;
 }
 
 .camera {
