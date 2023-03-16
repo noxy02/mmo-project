@@ -29,8 +29,8 @@ body {
 
 .player-info {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 240px;
+  right: 0;
   padding: 1em;
   display: flex;
   gap: 0.5em;
@@ -66,15 +66,20 @@ input[type="text"]:focus {
 button {
   padding-left: 0.5em;
   padding-right: 0.5em;
-  background: #59ff5a;
+  background: #f4e603;
   border: 0;
-  border-bottom: 2px solid #1e830b;
+  border-bottom: 2px solid #b9b000;
   cursor: pointer;
 }
 button:active {
   position: relative;
   top: 1px;
 }
+
+button:hover {
+  background: #fff429;
+}
+
 
 /* Characters */
 .grid-cell {
@@ -103,7 +108,7 @@ button:active {
 .Character_sprite {
   overflow: hidden;
   top: -3px;
-  background: url(./images/characters3.png);
+  background: url(./images/characters_animal.png);
 }
 .Character[data-direction="right"] .Character_sprite {
   background-position-x: -16px;

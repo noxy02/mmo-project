@@ -133,7 +133,6 @@ function randomRespawnSpot() {
   let playerElements = {};
 
   const gameContainer = document.querySelector(".game-container");
-  const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
   function minimap() {
@@ -145,7 +144,6 @@ function randomRespawnSpot() {
       .replace(/"/g, "");
     let img = new Image();
     img.onload = function () {
-      let canvas = minimapContext.canvas;
       minimapContext.clearRect(0, 0, img.width, img.height);
       minimapContext.drawImage(img, 0, 0, 240, 233);
       const playersRef = firebase.database().ref("players");
@@ -363,6 +361,7 @@ function randomRespawnSpot() {
       playerRef = firebase.database().ref(`players/${playerId}`);
 
       const { x, y } = randomRespawnSpot();
+      
       // const { x, y } = { x: 7, y: 7 }; // for testing
       playerRef.set({
         id: playerId,
