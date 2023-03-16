@@ -104,7 +104,7 @@ function isBoundary(x, y) {
   );
 }
 
-function getRandomSafeSpot() {
+function randomRespawnSpot() {
   //We don't look things up by key here, so just return an x/y
   return randomFromArray([
     { x: 1, y: 4 },
@@ -384,7 +384,7 @@ function getRandomSafeSpot() {
       const name = createName();
       playerNameInput.value = name;
 
-      const { x, y } = getRandomSafeSpot();
+      const { x, y } = randomRespawnSpot();
       // const { x, y } = { x: 7, y: 7 }; // for testing
       playerRef.set({
         id: playerId,
