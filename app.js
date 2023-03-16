@@ -141,6 +141,7 @@ function randomRespawnSpot() {
     const mapImage = gameContainerStyle.backgroundImage
       .slice(4, -1)
       .replace(/"/g, "");
+    console.log(mapImage);
     let img = new Image();
     img.onload = function () {
       minimapContext.clearRect(0, 0, img.width, img.height);
@@ -223,6 +224,7 @@ function randomRespawnSpot() {
         }
       }
       gameContainer.style.backgroundImage = backgroundSrc;
+      minimap();
 
       if (xChange === 1) {
         players[playerId].direction = "right";
@@ -286,13 +288,16 @@ function randomRespawnSpot() {
               -intLeft * 3 + 415
             }px, ${-intTop * 3 + 380}px, 0) scale(3)`;
           }
+          minimap();
         } else {
           let el = playerElements[key];
           el.style.visibility = `hidden`;
+          minimap();
         }
       });
-      minimap();
+      // minimap();
     });
+    // minimap();
     allPlayersRef.on("child_added", (snapshot) => {
       //   console.log("running: snapshot 2");
 
