@@ -24,7 +24,7 @@ body {
   background-size: 100%;
   position: relative;
   image-rendering: pixelated;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 
 .player-info {
@@ -83,7 +83,7 @@ button:active {
   height: 16px;
 }
 .Character {
-  transition: transform 0.6s;
+  transition: 0.2s;
 }
 .Character.you {
   z-index: 1;
