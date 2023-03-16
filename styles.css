@@ -180,11 +180,14 @@ button:hover {
 }
 
 #header {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  top: -3%;
+  /* padding: 10px; */
+  /* top: -3%; */
+  margin-bottom: 0;
   text-align: center;
   font-size: 72px;
+  visibility: visible !important;
 }
 
 #group-member-header {
