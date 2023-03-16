@@ -98,7 +98,7 @@ button:hover {
 .Character_you-arrow {
   display: none;
   position: absolute;
-  top: -16px;
+  top: -10px;
   left: 4px;
   width: 7px;
   height: 5px;
