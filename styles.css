@@ -1,31 +1,55 @@
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
-
-html, body {
-  margin: 0;
+:root {
+  --pixel-size: 4px;
+  --grid-cell: calc(var(--pixel-size) * 16);
+  --bg: #9fa7e4;
+}
+html,
+body {
+  /* margin: 0;
   padding: 0;
   height: 100%;
-  background: linear-gradient(180deg, #64BEFF -50%, #6e96ff 69.71%, #2a65ff 150%);
-  font-family: 'Source Sans Pro', sans-serif;
+  background: linear-gradient(
+    180deg,
+    #64beff -50%,
+    #6e96ff 69.71%,
+    #2a65ff 150%
+  );*/
+  padding: 0;
+  height: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  /*display: flex;
+  align-items: center;
+  justify-content: center; */
+
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.game-container { 
-  position: relative;
+.game-container {
+  background: url(./images/map.png) no-repeat no-repeat;
+  /* background: url(./images/nineLarge.png) no-repeat no-repeat; */
   width: 240px;
   height: 208px;
-  background: url(./images/map.png) no-repeat no-repeat;
+  /* width: 720px; */
+  /* height: 612; */
   transform: scale(3);
+  /* width: calc(15 * var(--grid-cell)); */
+  /* height: calc(13 * var(--grid-cell)); */
+  /* transform: scale(3); */
+  background-size: 100%;
+  position: relative;
   image-rendering: pixelated;
 }
 
 .player-info {
   position: absolute;
   top: 0;
-  left:0;
+  left: 0;
   padding: 1em;
   display: flex;
   gap: 0.5em;
@@ -89,7 +113,7 @@ button:active {
 .Character_you-arrow {
   display: none;
   position: absolute;
-  top:-18px;
+  top: -18px;
   left: 5px;
   width: 7px;
   height: 5px;
@@ -146,8 +170,12 @@ button:active {
   animation: coinFloat 0.8s linear infinite alternate-reverse;
 }
 @keyframes coinFloat {
-  from { transform: translateY(0) }
-  to { transform: translateY(5px) }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(5px);
+  }
 }
 .Coin_shadow {
   background: url(/images/coin-shadow.png) no-repeat no-repeat;
@@ -161,4 +189,18 @@ button:active {
   top: 5;
   right: 5;
   background-color: #4d2222;
+}
+
+.camera {
+  /* width: 240; */
+  /* height: 208; */
+  /* transform: scale(3); */
+  width: 400;
+  height: 400;
+  border: solid;
+  /* width: calc(var(--pixel-size) * 100); */
+  /* height: calc(var(--pixel-size) * 100); */
+  overflow: hidden;
+  background: #61ddf7;
+  position: relative;
 }

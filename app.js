@@ -280,7 +280,7 @@ function getRandomSafeSpot() {
           }
         }
       }
-      gameContainer.style.background = backgroundSrc;
+      gameContainer.style.backgroundImage = backgroundSrc;
       minimap();
 
       if (xChange === 1) {
@@ -330,9 +330,24 @@ function getRandomSafeSpot() {
           el.setAttribute("data-color", characterState.color);
           el.setAttribute("data-direction", characterState.direction);
           const left = 16 * characterState.x + "px";
-          const top = 16 * characterState.y - 4 + "px";
+          const top = 16 * characterState.y - 3 + "px";
+          const intLeft = 16 * characterState.x;
+          const intTop = 16 * characterState.y - 3;
+
           el.style.visibility = `visible`;
+          console.log(left, top);
+          console.log(intLeft, intTop);
+          var pixelSize = parseInt(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--pixel-size"
+            )
+          );
+          // gameContrainer.style.width = 720;
+          // gameContrainer.style.height = 612;
           el.style.transform = `translate3d(${left}, ${top}, 0)`;
+          gameContainer.style.transform = `translate3d(${
+            -intLeft * 3 + 425
+          }px, ${-intTop * 3 + 330}px, 0) scale(3)`;
         } else {
           let el = playerElements[key];
           el.style.visibility = `hidden`;
@@ -376,6 +391,7 @@ function getRandomSafeSpot() {
         characterElement.setAttribute("data-direction", addedPlayer.direction);
         const left = 16 * addedPlayer.x + "px";
         const top = 16 * addedPlayer.y - 4 + "px";
+
         characterElement.style.transform = `translate3d(${left}, ${top}, 0)`;
         gameContainer.appendChild(characterElement);
       }
@@ -461,8 +477,8 @@ function getRandomSafeSpot() {
       const name = createName();
       playerNameInput.value = name;
 
-      const { x, y } = getRandomSafeSpot();
-
+      // const { x, y } = getRandomSafeSpot();
+      const { x, y } = { x: 7, y: 7 };
       playerRef.set({
         id: playerId,
         name,
